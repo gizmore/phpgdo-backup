@@ -6,8 +6,8 @@ use GDO\Form\MethodForm;
 use GDO\Form\GDT_Submit;
 use GDO\Form\GDT_AntiCSRF;
 use GDO\CLI\Process;
+use GDO\Core\Application;
 use GDO\Backup\Module_Backup;
-use GDO\Core\Website;
 use GDO\Admin\MethodAdmin;
 
 /**
@@ -21,15 +21,18 @@ final class DetectMysqldump extends MethodForm
     
     public function beforeExecute() : void
     {
-        $this->renderAdminBar();
-        Admin::make()->renderBackupNavBar();
+    	if (Application::instance()->isHTML())
+    	{
+    		$this->renderAdminBar();
+    		Module_Backup::instance()->renderBackupBar();
+    	}
     }
     
     public function createForm(GDT_Form $form) : void
     {
-        $form->addFields([
+        $form->addFields(
             GDT_AntiCSRF::make(),
-        ]);
+        );
         $form->actions()->addField(GDT_Submit::make());
     }
     
@@ -44,7 +47,7 @@ final class DetectMysqldump extends MethodForm
         if ($path = Process::commandPath("mysql"))
         {
             Module_Backup::instance()->saveConfigVar('mysql_path', $path);
-            Website::redirectMessage('msg_detected_mysql', null, href('Admin', 'Configure', "&module=Backup"));
+            $this->redirectMessage('msg_detected_mysql', null, href('Admin', 'Configure', "&module=Backup"));
         }
         else
         {
@@ -56,7 +59,7 @@ final class DetectMysqldump extends MethodForm
         if ($path = Process::commandPath("mysqldump"))
         {
             Module_Backup::instance()->saveConfigVar('mysqldump_path', $path);
-            Website::redirectMessage('msg_detected_mysqldump', null, href('Admin', 'Configure', "&module=Backup"));
+            $this->redirectMessage('msg_detected_mysqldump', null, href('Admin', 'Configure', "&module=Backup"));
         }
         else
         {

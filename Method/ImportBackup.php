@@ -10,6 +10,7 @@ use GDO\Util\FileUtil;
 use GDO\Admin\MethodAdmin;
 use GDO\DB\Database;
 use GDO\DB\Cache;
+use GDO\Core\Application;
 use GDO\Core\GDT_Hook;
 use GDO\Util\Filewalker;
 use GDO\ZIP\Module_ZIP;
@@ -34,18 +35,21 @@ final class ImportBackup extends MethodForm
 	
 	public function getPermission() : ?string { return 'admin'; }
 	
-	public function isTransactional() { return false; }
+	public function isTransactional() : bool { return false; }
 	
 	public function beforeExecute() : void
 	{
-	    $this->renderAdminBar();
-	    Admin::make()->renderBackupNavBar();
+		if (Application::instance()->isHTML())
+		{
+			$this->renderAdminBar();
+			Module_Backup::instance()->renderBackupBar();
+		}
 	}
-
+	
 	public function createForm(GDT_Form $form) : void
 	{
 	    $form->text('info_import_backup');
-		$form->addFields([
+		$form->addFields(
 		    GDT_Divider::make()->label('div_after_import'),
 		    GDT_Hostname::make('hostname')->initial(GDT_Url::host()),
 		    GDT_String::make('cookie_domain')->initial(GDT_Url::host()),
@@ -53,7 +57,7 @@ final class ImportBackup extends MethodForm
 		    GDT_Divider::make()->label('backup_file'),
 		    GDT_File::make('backup_file')->maxsize(1024*1024*1024)->notNull(), # max 1GB
 			GDT_AntiCSRF::make(),
-		]);
+		);
 		$btn = GDT_DeleteButton::make('submit')->label('submit')->confirmText('info_import_backup');
 		$form->actions()->addField($btn);
 	}

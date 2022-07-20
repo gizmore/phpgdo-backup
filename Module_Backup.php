@@ -5,6 +5,9 @@ use GDO\Core\GDO_Module;
 use GDO\Core\GDT_Checkbox;
 use GDO\Core\GDT_Path;
 use GDO\Backup\Method\DetectMysqldump;
+use GDO\UI\GDT_Bar;
+use GDO\UI\GDT_Link;
+use GDO\UI\GDT_Page;
 
 /**
  * Backup system for gdo6.
@@ -50,6 +53,25 @@ final class Module_Backup extends GDO_Module
 	public function onInstall() : void
 	{
 	    DetectMysqldump::make()->detect();
+	}
+	
+	##############
+	### Navbar ###
+	##############
+	public function renderBackupBar() : void
+	{
+		GDT_Page::$INSTANCE->topResponse()->addField(
+			$this->renderBackupNavBar());
+	}
+	
+	private function renderBackupNavBar()
+	{
+		return GDT_Bar::makeWith(
+			GDT_Link::make('link_backup_create')->href(href('Backup', 'CreateBackup')),
+			GDT_Link::make('link_backup_import')->href(href('Backup', 'ImportBackup')),
+			GDT_Link::make('link_backup_downloads')->href(href('Backup', 'ListBackups')),
+			GDT_Link::make('link_backup_detect_mysqldump')->href(href('Backup', 'DetectMysqldump'))
+		)->horizontal();
 	}
 	
 }

@@ -41,7 +41,7 @@ final class GDO_Backup extends GDO
 	### Getter ###
 	##############
 	public function getID() : ?string { return null; }
-	public function getName() { return $this->gdoVar('backup_name'); }
+	public function getName() : ?string { return $this->gdoVar('backup_name'); }
 	/**
 	 * @return \GDO\File\GDO_File
 	 */

@@ -105,12 +105,6 @@ final class Cronjob extends MethodCronjob
 	        return false;
 	    }
 	    
-// 	    if (!@unlink($path))
-// 	    {
-// 	        $this->logError("Could not cleanup sql backup");
-// 	        return false;
-// 	    }
-	    
 	    return true;
 	}
 
@@ -123,8 +117,9 @@ final class Cronjob extends MethodCronjob
 	    $path = $this->tempDir() . "$sitename.$today.files.zip";
 	    $path = FileUtil::path($path);
 	    $zip = Module_ZIP::instance()->cfgZipPath();
-	    $command = "$zip -j -r9 $path $src";
-	    $output = null; $return_val = null;
+	    $command = "\"$zip\" -j -r9 \"$path\" \"$src\"";
+	    $output = null;
+	    $return_val = null;
 	    exec($command, $output, $return_val);
 	    if ($return_val !== 0)
 	    {
@@ -143,7 +138,7 @@ final class Cronjob extends MethodCronjob
 	    $src = FileUtil::path($src);
 	    $backupPath = GDO_PATH . "protected/backup/";
 	    $sitename = GDO_SITENAME;
-	    $today = date('Ymd');
+	    $today = date('Ymd_His');
 	    FileUtil::createDir($backupPath);
 	    $path = "$backupPath$sitename.$today.zip";
 	    $path = FileUtil::path($path);

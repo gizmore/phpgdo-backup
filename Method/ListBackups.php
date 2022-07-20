@@ -2,15 +2,18 @@
 namespace GDO\Backup\Method;
 
 use GDO\Table\MethodTable;
+use GDO\Core\Application;
 use GDO\DB\ArrayResult;
 use GDO\Admin\MethodAdmin;
 use GDO\Util\Filewalker;
 use GDO\Backup\GDO_Backup;
+use GDO\Backup\Module_Backup;
 use GDO\Date\Time;
 use GDO\UI\GDT_DownloadButton;
 
 /**
  * List of Backups with downloads.
+ * 
  * @author gizmore
  */
 final class ListBackups extends MethodTable
@@ -21,7 +24,7 @@ final class ListBackups extends MethodTable
 	
 	public function gdoTable() { return GDO_Backup::table(); }
 	
-	public function getDefaultOrder() { return 'backup_created DESC'; }
+	public function getDefaultOrder() : ?string { return 'backup_created DESC'; }
 	
 	public function gdoHeaders() : array
 	{
@@ -37,8 +40,11 @@ final class ListBackups extends MethodTable
 	
 	public function beforeExecute() : void
 	{
-	    $this->renderAdminBar();
-		Admin::make()->renderBackupNavBar();
+		if (Application::instance()->isHTML())
+		{
+			$this->renderAdminBar();
+			Module_Backup::instance()->renderBackupBar();
+		}
 	}
 	
 	public function getBackups()
@@ -58,7 +64,7 @@ final class ListBackups extends MethodTable
 		]);
 	}
 
-	public function getResult()
+	public function getResult() : ArrayResult
 	{
 	    $this->getBackups();
 		return new ArrayResult($this->backups, GDO_Backup::table());

@@ -3,12 +3,8 @@ namespace GDO\Backup\Method;
 
 use GDO\Core\Method;
 use GDO\Admin\MethodAdmin;
-use GDO\UI\GDT_Bar;
-use GDO\UI\GDT_Link;
-use GDO\UI\GDT_Page;
 use GDO\Core\Application;
-use GDO\Core\GDT_Response;
-use GDO\UI\GDT_Panel;
+use GDO\Backup\Module_Backup;
 
 /**
  * A backup admin method. renders backup tabs.
@@ -20,25 +16,15 @@ final class Admin extends Method
 	
 	public function beforeExecute() : void
 	{
-	    if (Application::instance()->isHTML())
-	    {
-	    	GDT_Page::$INSTANCE->topBar()->addField($this->renderBackupNavBar());
-	    }
-	}
-	
-	public function renderBackupNavBar()
-	{
-		return GDT_Bar::makeWith(
-			GDT_Link::make('link_backup_create')->href(href('Backup', 'CreateBackup')),
-			GDT_Link::make('link_backup_import')->href(href('Backup', 'ImportBackup')),
-		    GDT_Link::make('link_backup_downloads')->href(href('Backup', 'ListBackups')),
-		    GDT_Link::make('link_backup_detect_mysqldump')->href(href('Backup', 'DetectMysqldump'))
-	    )->horizontal();
+		if (Application::instance()->isHTML())
+		{
+			$this->renderAdminBar();
+			Module_Backup::instance()->renderBackupBar();
+		}
 	}
 	
 	public function execute()
 	{
-// 		return GDT_Response::make()->addField(GDT_Panel::make()->text('bla'));
 	}
 	
 }
