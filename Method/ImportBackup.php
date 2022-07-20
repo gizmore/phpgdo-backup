@@ -6,16 +6,16 @@ use GDO\Form\MethodForm;
 use GDO\File\GDT_File;
 use GDO\Form\GDT_AntiCSRF;
 use GDO\File\GDO_File;
-use GDO\File\FileUtil;
+use GDO\Util\FileUtil;
 use GDO\Admin\MethodAdmin;
 use GDO\DB\Database;
 use GDO\DB\Cache;
 use GDO\Core\GDT_Hook;
-use GDO\File\Filewalker;
+use GDO\Util\Filewalker;
 use GDO\ZIP\Module_ZIP;
 use GDO\Core\GDT_Response;
 use GDO\Backup\Module_Backup;
-use GDO\Form\GDT_DeleteButton;
+use GDO\UI\GDT_DeleteButton;
 use GDO\Core\GDT_String;
 use GDO\Net\GDT_Hostname;
 use GDO\Net\GDT_Url;
@@ -44,7 +44,7 @@ final class ImportBackup extends MethodForm
 
 	public function createForm(GDT_Form $form) : void
 	{
-	    $form->info(t('info_import_backup'));
+	    $form->text('info_import_backup');
 		$form->addFields([
 		    GDT_Divider::make()->label('div_after_import'),
 		    GDT_Hostname::make('hostname')->initial(GDT_Url::host()),

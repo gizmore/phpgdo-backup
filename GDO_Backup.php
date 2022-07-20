@@ -5,10 +5,10 @@ use GDO\Core\GDO;
 use GDO\Core\GDT_String;
 use GDO\Core\GDT_Path;
 use GDO\Date\GDT_DateTime;
-use GDO\File\FileUtil;
+use GDO\Util\FileUtil;
 use GDO\File\GDO_File;
 use GDO\Date\Time;
-use GDO\File\GDT_Filesize;
+use GDO\Core\GDT_Filesize;
 
 /**
  * This GDO is not installed to the database.

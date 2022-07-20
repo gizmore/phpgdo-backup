@@ -4,7 +4,7 @@ namespace GDO\Backup\Method;
 use GDO\Table\MethodTable;
 use GDO\DB\ArrayResult;
 use GDO\Admin\MethodAdmin;
-use GDO\File\Filewalker;
+use GDO\Util\Filewalker;
 use GDO\Backup\GDO_Backup;
 use GDO\Date\Time;
 use GDO\UI\GDT_DownloadButton;

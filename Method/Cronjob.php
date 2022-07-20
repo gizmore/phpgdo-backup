@@ -2,7 +2,7 @@
 namespace GDO\Backup\Method;
 
 use GDO\Backup\Module_Backup;
-use GDO\File\FileUtil;
+use GDO\Util\FileUtil;
 use GDO\Mail\Mail;
 use GDO\User\GDO_User;
 use GDO\Cronjob\MethodCronjob;
