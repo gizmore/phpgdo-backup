@@ -24,7 +24,7 @@ final class Module_Backup extends GDO_Module
 	public int $priority = 100;
 	public function defaultEnabled() : bool { return false; }
 	public function onLoadLanguage() : void { $this->loadLanguage('lang/backup'); }
-	public function href_administrate_module() { return href('Backup', 'Admin'); }
+	public function href_administrate_module() : ?string { return href('Backup', 'Admin'); }
 	public function getDependencies() : array
 	{
 		return [

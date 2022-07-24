@@ -3,6 +3,7 @@ namespace GDO\Backup\Method;
 
 use GDO\Table\MethodTable;
 use GDO\Core\Application;
+use GDO\Core\GDO;
 use GDO\DB\ArrayResult;
 use GDO\Admin\MethodAdmin;
 use GDO\Util\Filewalker;
@@ -22,7 +23,7 @@ final class ListBackups extends MethodTable
 	
 	private $backups;
 	
-	public function gdoTable() { return GDO_Backup::table(); }
+	public function gdoTable() : GDO { return GDO_Backup::table(); }
 	
 	public function getDefaultOrder() : ?string { return 'backup_created DESC'; }
 	

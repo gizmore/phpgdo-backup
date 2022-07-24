@@ -10,9 +10,9 @@ return [
 	'link_backup_import' => 'Import Backup',
 	'link_backup_downloads' => 'Download Backups',
 	### Create
-	'ft_backup_createbackup' => 'Create a backup',
+	'mt_backup_createbackup' => 'Create a backup',
 	### Import
-	'ft_backup_importbackup' => 'Import a backup',
+	'mt_backup_importbackup' => 'Import a backup',
 	### Download
 	'btn_download' => 'Download',
 	### Mail
@@ -28,7 +28,7 @@ The %s system.',
 	'cfg_mysql_path' => 'Path to mysql binary client',
 	'cfg_mysqldump_path' => 'Path to mysqldump binary',
 	'link_backup_detect_mysqldump' => 'Detect Mysqldump',
-	'ft_backup_detectmysqldump' => 'Detect Mysqldump',
+	'mt_backup_detectmysqldump' => 'Detect Mysqldump',
 	'msg_backup_created' => 'A fresh backup has been created.',
 	'err_gunzip_backup' => 'Cannot gunzip the database backup.',
 	'msg_backup_imported' => 'The backup has been imported successfully.',
