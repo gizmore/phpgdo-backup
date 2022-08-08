@@ -4,7 +4,7 @@ return [
 	### Config
 	'cfg_backup_lastdate' => 'Last backup date',
 	'cfg_backup_send_mail' => 'Send mail with backup attachment',
-	'cfg_tt_backup_send_mail' => 'This probably is very large very soon, sadly :(',
+	'tt_cfg_backup_send_mail' => 'This probably is very large very soon, sadly :(',
 	### Links
 	'link_backup_create' => 'Create Backup',
 	'link_backup_import' => 'Import Backup',

@@ -4,7 +4,7 @@ return [
 	### Config
 	'cfg_backup_lastdate' => 'Datum des letzten Backups',
 	'cfg_backup_send_mail' => 'Backups per Email senden?',
-	'cfg_tt_backup_send_mail' => 'Das Backup ist vielleicht zu groß :(',
+	'tt_cfg_backup_send_mail' => 'Das Backup ist vielleicht zu groß :(',
 	### Links
 	'link_backup_create' => 'Backup erstellen',
 	'link_backup_import' => 'Backup einspielen',
