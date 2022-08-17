@@ -15,6 +15,8 @@ return [
 	'mt_backup_importbackup' => 'Import a backup',
 	### Download
 	'btn_download' => 'Download',
+	### Admin
+	'mt_backup_admin' => 'Backups',
 	### Mail
 	'mail_subj_backup' => '%s: Backup',
 	'mail_body_backup' => '

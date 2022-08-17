@@ -13,6 +13,7 @@ use GDO\Admin\MethodAdmin;
  * Download a backup.
  * 
  * @author gizmore
+ * @version 7.0.1
  */
 final class Download extends Method
 {
@@ -20,11 +21,16 @@ final class Download extends Method
 	
 	public function getPermission() : ?string { return 'admin'; }
 	
+	public function getMethodTitle() : string
+	{
+		return t('link_backup_downloads');
+	}
+	
 	public function gdoParameters() : array
 	{
-		return array(
+		return [
 			GDT_String::make('backup_name')->notNull(),
-		);
+		];
 	}
 	
 	public function beforeExecute() : void
