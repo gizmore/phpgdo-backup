@@ -27,6 +27,11 @@ final class ListBackups extends MethodTable
 	
 	public function getDefaultOrder() : ?string { return 'backup_created DESC'; }
 	
+	public function getMethodTitle() : string
+	{
+		return t('mt_backup_listbackups');
+	}
+	
 	public function gdoHeaders() : array
 	{
 		$backups = GDO_Backup::table();
