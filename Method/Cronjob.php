@@ -22,7 +22,7 @@ use GDO\File\GDO_File;
  * - Database via mysqldump binary
  * 
  * @author gizmore
- * @version 6.11.0
+ * @version 7.0.1
  * @since 6.3.0
  * @see Module_ZIP
  */
@@ -44,8 +44,10 @@ final class Cronjob extends MethodCronjob
 	    return GDO_PATH . 'temp/backup/';
 	}
 	
-	public function doBackup()
+	public function doBackup() : bool
 	{
+		$success = true;
+		
 	    # Clean backup in temp
 	    FileUtil::removeDir($this->tempDir());
 	    FileUtil::createDir($this->tempDir());
@@ -56,11 +58,18 @@ final class Cronjob extends MethodCronjob
 	        $this->doFilesDump())
 	    {
 	        # Create final archive
-	        $this->createArchive();
+	        $success = $this->createArchive();
+	    }
+	    else
+	    {
+	    	$this->error('err_backup_failed');
+	    	$success = false;
 	    }
 	    
 	    # Cleanup
 	    FileUtil::removeDir($this->tempDir());
+	    
+	    return $success;
 	}
 	
 	private function doConfigDump()
@@ -132,7 +141,7 @@ final class Cronjob extends MethodCronjob
 	#####################
 	### Final archive ###
 	#####################
-	private function createArchive()
+	private function createArchive() : bool
 	{
 	    $src = $this->tempDir();
 	    $src = FileUtil::path($src);
@@ -158,6 +167,8 @@ final class Cronjob extends MethodCronjob
 	    	# Send via mail
 	    	$this->sendBackupPerMail($path);
 	    }
+	    
+	    return true;
 	}
 	
 	############

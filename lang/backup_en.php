@@ -43,4 +43,6 @@ The %s system.',
 	'msg_detected_mysql' => 'mysql has been detected.',
 	'list_backup_listbackups' => '%s Backups available',
 	'info_import_backup' => 'An import will destroy the current site. Are you sure?',
+	'err_backup_failed' => 'The backup process failed.',
+	
 ];

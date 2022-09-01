@@ -33,6 +33,8 @@ final class ImportBackup extends MethodForm
 {
 	use MethodAdmin;
 	
+	public function isTrivial() : bool { return false; }
+	
 	public function getPermission() : ?string { return 'admin'; }
 	
 	public function isTransactional() : bool { return false; }
