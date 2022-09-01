@@ -15,13 +15,10 @@ final class CreateBackup extends MethodForm
 	
 	public function getPermission() : ?string { return 'admin'; }
 	
-	public function beforeExecute() : void
+	public function onRenderTabs() : void
 	{
-		if (Application::instance()->isHTML())
-		{
-			$this->renderAdminBar();
-			Module_Backup::instance()->renderBackupBar();
-		}
+		$this->renderAdminBar();
+		Module_Backup::instance()->renderBackupBar();
 	}
 	
 	public function createForm(GDT_Form $form) : void

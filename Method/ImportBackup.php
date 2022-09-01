@@ -39,13 +39,10 @@ final class ImportBackup extends MethodForm
 	
 	public function isTransactional() : bool { return false; }
 	
-	public function beforeExecute() : void
+	public function onRenderTabs() : void
 	{
-		if (Application::instance()->isHTML())
-		{
-			$this->renderAdminBar();
-			Module_Backup::instance()->renderBackupBar();
-		}
+		$this->renderAdminBar();
+		Module_Backup::instance()->renderBackupBar();
 	}
 	
 	public function createForm(GDT_Form $form) : void
