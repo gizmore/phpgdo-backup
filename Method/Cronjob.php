@@ -83,7 +83,7 @@ final class Cronjob extends MethodCronjob
 	private function doMysqlDump()
 	{
 	    $sitename = GDO_SITENAME;
-	    $today = date('Ymd');
+	    $today = date('YmdHis');
 	    $path = $this->tempDir() . "$sitename.$today.sql";
 	    $path = FileUtil::path($path);
 	    
@@ -92,9 +92,9 @@ final class Cronjob extends MethodCronjob
 	    $database = GDO_DB_NAME;
 	    
 	    $mysqldump = Module_Backup::instance()->cfgMysqldumpPath();
-	    
-	    $command = "$mysqldump --add-drop-table --no-create-db --skip-lock-tables --databases $database -u $username -p$password $database > $path";
-	    $output = null; $return_val = null;
+	    $command = "\"$mysqldump\" --add-drop-table --no-create-db --skip-lock-tables --databases $database -u $username -p$password $database > $path";
+	    $output = null;
+	    $return_val = null;
 	    exec($command, $output, $return_val);
 	    if ($return_val !== 0)
 	    {
@@ -104,9 +104,9 @@ final class Cronjob extends MethodCronjob
 	    }
 	    
 	    $gzip = Module_ZIP::instance()->cfgGZipPath();
-	    
-	    $command = "$gzip $path";
-	    $output = null; $return_val = null;
+	    $command = "\"$gzip\" $path";
+	    $output = null;
+	    $return_val = null;
 	    exec($command, $output, $return_val);
 	    if ($return_val !== 0)
 	    {
@@ -122,7 +122,7 @@ final class Cronjob extends MethodCronjob
 	    $src = rtrim(GDO_File::filesDir(), '/');
 	    $src = FileUtil::path($src);
 	    $sitename = GDO_SITENAME;
-	    $today = date('Ymd');
+	    $today = date('YmdHis');
 	    $path = $this->tempDir() . "$sitename.$today.files.zip";
 	    $path = FileUtil::path($path);
 	    $zip = Module_ZIP::instance()->cfgZipPath();
