@@ -6,7 +6,6 @@ use GDO\Form\MethodForm;
 use GDO\Form\GDT_Submit;
 use GDO\Form\GDT_AntiCSRF;
 use GDO\CLI\Process;
-use GDO\Core\Application;
 use GDO\Backup\Module_Backup;
 use GDO\Admin\MethodAdmin;
 

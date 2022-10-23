@@ -5,13 +5,17 @@ use GDO\Form\MethodForm;
 use GDO\Form\GDT_Form;
 use GDO\Admin\MethodAdmin;
 use GDO\Backup\Module_Backup;
-use GDO\Core\Application;
 use GDO\Form\GDT_Submit;
 use GDO\Form\GDT_AntiCSRF;
 
 final class CreateBackup extends MethodForm
 {
 	use MethodAdmin;
+	
+	public function isTrivial(): bool
+	{
+		return false;
+	}
 	
 	public function getPermission() : ?string { return 'admin'; }
 	
