@@ -19,6 +19,11 @@ use GDO\Core\GDT_Filesize;
  */
 final class GDO_Backup extends GDO
 {
+	public function isTestable(): bool
+	{
+		return false;
+	}
+	
     ###########
     ### GDO ###
     ###########
