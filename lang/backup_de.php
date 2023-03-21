@@ -1,5 +1,6 @@
 <?php
 namespace GDO\Backup\lang;
+
 return [
 	### Config
 	'cfg_backup_lastdate' => 'Datum des letzten Backups',

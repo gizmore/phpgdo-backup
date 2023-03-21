@@ -1,38 +1,38 @@
 <?php
 namespace GDO\Backup\Method;
 
-use GDO\Table\MethodTable;
-use GDO\Core\Application;
-use GDO\Core\GDO;
-use GDO\DB\ArrayResult;
 use GDO\Admin\MethodAdmin;
-use GDO\Util\Filewalker;
 use GDO\Backup\GDO_Backup;
 use GDO\Backup\Module_Backup;
+use GDO\Core\GDO;
 use GDO\Date\Time;
+use GDO\DB\ArrayResult;
+use GDO\Table\MethodTable;
 use GDO\UI\GDT_DownloadButton;
+use GDO\Util\Filewalker;
 
 /**
  * List of Backups with downloads.
- * 
+ *
  * @author gizmore
  */
 final class ListBackups extends MethodTable
 {
+
 	use MethodAdmin;
-	
+
 	private $backups;
-	
-	public function gdoTable() : GDO { return GDO_Backup::table(); }
-	
-	public function getDefaultOrder() : ?string { return 'backup_created DESC'; }
-	
-	public function getMethodTitle() : string
+
+	public function gdoTable(): GDO { return GDO_Backup::table(); }
+
+	public function getDefaultOrder(): ?string { return 'backup_created DESC'; }
+
+	public function getMethodTitle(): string
 	{
 		return t('mt_backup_listbackups');
 	}
-	
-	public function gdoHeaders() : array
+
+	public function gdoHeaders(): array
 	{
 		$backups = GDO_Backup::table();
 		return [
@@ -43,20 +43,26 @@ final class ListBackups extends MethodTable
 // 			$backups->gdoColumn('backup_path'),
 		];
 	}
-	
-	public function onRenderTabs() : void
+
+	public function getResult(): ArrayResult
+	{
+		$this->getBackups();
+		return new ArrayResult($this->backups, GDO_Backup::table());
+	}
+
+	public function getBackups()
+	{
+		$this->backups = [];
+		Filewalker::traverse(GDO_PATH . 'protected/backup', '/\\.zip$/', [$this, 'addBackup']);
+		return $this->backups;
+	}
+
+	public function onRenderTabs(): void
 	{
 		$this->renderAdminBar();
 		Module_Backup::instance()->renderBackupBar();
 	}
-	
-	public function getBackups()
-	{
-		$this->backups = [];
-		Filewalker::traverse(GDO_PATH.'protected/backup', '/\\.zip$/', [$this, 'addBackup']);
-		return $this->backups;
-	}
-	
+
 	public function addBackup($entry, $fullpath)
 	{
 		$this->backups[] = GDO_Backup::blank([
@@ -67,10 +73,4 @@ final class ListBackups extends MethodTable
 		]);
 	}
 
-	public function getResult() : ArrayResult
-	{
-	    $this->getBackups();
-		return new ArrayResult($this->backups, GDO_Backup::table());
-	}
-	
 }

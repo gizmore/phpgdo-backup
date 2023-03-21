@@ -1,5 +1,6 @@
 <?php
 namespace GDO\Backup\lang;
+
 return [
 	### Config
 	'cfg_backup_lastdate' => 'Last backup date',
@@ -42,5 +43,5 @@ The %s system.',
 	'list_backup_listbackups' => '%s Backups available',
 	'info_import_backup' => 'An import will destroy the current site. Are you sure?',
 	'err_backup_failed' => 'The backup process failed.',
-	
+
 ];
