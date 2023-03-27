@@ -3,6 +3,7 @@ namespace GDO\Backup\Method;
 
 use GDO\Admin\MethodAdmin;
 use GDO\Backup\Module_Backup;
+use GDO\Core\GDT;
 use GDO\Form\GDT_AntiCSRF;
 use GDO\Form\GDT_Form;
 use GDO\Form\GDT_Submit;
@@ -26,7 +27,7 @@ final class CreateBackup extends MethodForm
 		$form->actions()->addField(GDT_Submit::make());
 	}
 
-	public function formValidated(GDT_Form $form)
+	public function formValidated(GDT_Form $form): GDT
 	{
 		if (Cronjob::make()->doBackup())
 		{

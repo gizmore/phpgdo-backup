@@ -4,6 +4,7 @@ namespace GDO\Backup\Method;
 
 use GDO\Admin\MethodAdmin;
 use GDO\Backup\Module_Backup;
+use GDO\Core\GDT;
 use GDO\Core\GDT_Checkbox;
 use GDO\Core\GDT_Hook;
 use GDO\Core\GDT_Response;
@@ -56,7 +57,7 @@ final class ImportBackup extends MethodForm
 		$form->actions()->addField($btn);
 	}
 
-	public function formValidated(GDT_Form $form)
+	public function formValidated(GDT_Form $form): GDT
 	{
 		$file = $form->getFormValue('backup_file');
 		$this->importBackup($file);

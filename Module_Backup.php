@@ -25,7 +25,7 @@ final class Module_Backup extends GDO_Module
 
 	public int $priority = 100;
 
-	public function defaultEnabled(): bool { return false; }
+	public function defaultEnabled(): string { return false; }
 
 	public function onLoadLanguage(): void { $this->loadLanguage('lang/backup'); }
 

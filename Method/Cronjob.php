@@ -29,12 +29,12 @@ use GDO\ZIP\Module_ZIP;
 final class Cronjob extends MethodCronjob
 {
 
-	public function runAt()
+	public function runAt(): string
 	{
 		return $this->runDailyAt(3);
 	}
 
-	public function run()
+	public function run(): void
 	{
 		$this->logNotice('Doing daily backup');
 		$this->doBackup();

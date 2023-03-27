@@ -4,7 +4,9 @@ namespace GDO\Backup\Method;
 use GDO\Admin\MethodAdmin;
 use GDO\Backup\GDO_Backup;
 use GDO\Backup\Module_Backup;
+use GDO\Core\GDT;
 use GDO\Core\GDT_Path;
+use GDO\Core\GDT_Response;
 use GDO\Core\Method;
 use GDO\Net\Stream;
 
@@ -40,10 +42,11 @@ final class Download extends Method
 		];
 	}
 
-	public function execute()
+	public function execute(): GDT
 	{
 		$backup = GDO_Backup::findByName($this->gdoParameterVar('backup_name'));
 		Stream::serve($backup->getFile());
+		return GDT_Response::make();
 	}
 
 }

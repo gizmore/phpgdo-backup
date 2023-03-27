@@ -4,6 +4,7 @@ namespace GDO\Backup\Method;
 use GDO\Admin\MethodAdmin;
 use GDO\Backup\Module_Backup;
 use GDO\CLI\Process;
+use GDO\Core\GDT;
 use GDO\Form\GDT_AntiCSRF;
 use GDO\Form\GDT_Form;
 use GDO\Form\GDT_Submit;
@@ -39,7 +40,7 @@ final class DetectMysqldump extends MethodForm
 		return $this->formValidated($this->getForm());
 	}
 
-	public function formValidated(GDT_Form $form)
+	public function formValidated(GDT_Form $form): GDT
 	{
 		# Detect mysql
 		if ($path = Process::commandPath('mysql'))
