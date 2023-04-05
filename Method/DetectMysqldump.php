@@ -5,6 +5,7 @@ use GDO\Admin\MethodAdmin;
 use GDO\Backup\Module_Backup;
 use GDO\CLI\Process;
 use GDO\Core\GDT;
+use GDO\Core\GDT_Response;
 use GDO\Form\GDT_AntiCSRF;
 use GDO\Form\GDT_Form;
 use GDO\Form\GDT_Submit;
@@ -63,6 +64,7 @@ final class DetectMysqldump extends MethodForm
 			return $this->error('err_file_not_found', ['mysqldump'])->
 			addField($this->renderPage());
 		}
+		return GDT_Response::make();
 	}
 
 }
