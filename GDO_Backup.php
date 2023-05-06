@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace GDO\Backup;
 
 use GDO\Core\GDO;
@@ -15,7 +16,7 @@ use GDO\Util\FileUtil;
  * This GDO is not installed to the database.
  * They get created from the file system.
  *
- * @version 6.10.1
+ * @version 7.0.3
  * @since 6.8.0
  * @author gizmore
  */
@@ -23,14 +24,11 @@ final class GDO_Backup extends GDO
 {
 
 	/**
-	 * @param string $name
-	 *
-	 * @return self
+	 * @throws GDO_Error
 	 */
-	public static function findByName($name)
+	public static function findByName(string $name): self
 	{
 		$path = GDO_PATH . 'protected/backup/' . $name;
-
 		if (FileUtil::isFile($path))
 		{
 			return GDO_Backup::blank([
@@ -40,7 +38,6 @@ final class GDO_Backup extends GDO
 				'backup_size' => filesize($path),
 			]);
 		}
-
 		throw new GDO_Error('err_file_not_found', [html($path)]);
 	}
 
@@ -61,7 +58,7 @@ final class GDO_Backup extends GDO
 	{
 		return [
 			GDT_String::make('backup_name')->label('name'),
-			GDT_Path::make('backup_path'),
+			GDT_Path::make('backup_path')->existingFile(),
 			GDT_DateTime::make('backup_created')->label('created_at'),
 			GDT_Filesize::make('backup_size'),
 		];
@@ -73,7 +70,7 @@ final class GDO_Backup extends GDO
 
 	public function getID(): ?string { return null; }
 
-	public function href_backup_link() { return href('Backup', 'Download', '&backup_name=' . urlencode($this->getName())); }
+	public function href_backup_link(): string { return href('Backup', 'Download', '&backup_name=' . urlencode($this->getName())); }
 
 	public function getName(): ?string { return $this->gdoVar('backup_name'); }
 
@@ -81,10 +78,7 @@ final class GDO_Backup extends GDO
 	### Static ###
 	##############
 
-	/**
-	 * @return GDO_File
-	 */
-	public function getFile()
+	public function getFile(): GDO_File
 	{
 		$path = $this->gdoVar('backup_path');
 		return GDO_File::blank([
