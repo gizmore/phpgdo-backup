@@ -5,8 +5,8 @@ namespace GDO\Backup\Method;
 use GDO\Admin\MethodAdmin;
 use GDO\Backup\GDO_Backup;
 use GDO\Backup\Module_Backup;
-use GDO\Core\GDO_ArgException;
-use GDO\Core\GDO_Error;
+use GDO\Core\GDO_ArgError;
+use GDO\Core\GDO_Exception;
 use GDO\Core\GDT;
 use GDO\Core\GDT_Path;
 use GDO\Core\GDT_Response;
@@ -51,8 +51,8 @@ final class Download extends Method
 	}
 
 	/**
-	 * @throws GDO_ArgException
-	 * @throws GDO_Error
+	 * @throws GDO_ArgError
+	 * @throws GDO_Exception
 	 */
 	public function execute(): GDT
 	{

@@ -28,7 +28,7 @@ final class DetectMysqldump extends MethodForm
 		Module_Backup::instance()->renderBackupBar();
 	}
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$form->addFields(
 			GDT_AntiCSRF::make(),

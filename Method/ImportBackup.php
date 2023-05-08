@@ -41,7 +41,7 @@ final class ImportBackup extends MethodForm
 
 	public function isTransactional(): bool { return false; }
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$form->text('info_import_backup');
 		$form->addFields(

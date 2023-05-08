@@ -3,7 +3,7 @@ declare(strict_types=1);
 namespace GDO\Backup;
 
 use GDO\Core\GDO;
-use GDO\Core\GDO_Error;
+use GDO\Core\GDO_Exception;
 use GDO\Core\GDT_Filesize;
 use GDO\Core\GDT_Path;
 use GDO\Core\GDT_String;
@@ -24,7 +24,7 @@ final class GDO_Backup extends GDO
 {
 
 	/**
-	 * @throws GDO_Error
+	 * @throws GDO_Exception
 	 */
 	public static function findByName(string $name): self
 	{
@@ -38,7 +38,7 @@ final class GDO_Backup extends GDO
 				'backup_size' => filesize($path),
 			]);
 		}
-		throw new GDO_Error('err_file_not_found', [html($path)]);
+		throw new GDO_Exception('err_file_not_found', [html($path)]);
 	}
 
 	###########
