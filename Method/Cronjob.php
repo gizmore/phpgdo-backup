@@ -89,13 +89,14 @@ final class Cronjob extends MethodCronjob
 		$today = date('YmdHis');
 		$path = $this->tempDir() . "$sitename.$today.sql";
 		$path = FileUtil::path($path);
+        $path = escapeshellarg($path);
 
 		$username = GDO_DB_USER;
 		$password = GDO_DB_PASS;
 		$database = GDO_DB_NAME;
 
-		$mysqldump = Module_Backup::instance()->cfgMysqldumpPath();
-		$command = "\"$mysqldump\" --add-drop-table --no-create-db --skip-lock-tables --databases $database -u $username -p$password $database > $path";
+		$mysqldump = escapeshellarg(Module_Backup::instance()->cfgMysqldumpPath());
+		$command = "$mysqldump --add-drop-table --no-create-db --skip-lock-tables --databases $database -u $username -p$password $database > $path";
 		$output = null;
 		$return_val = null;
 		exec($command, $output, $return_val);
@@ -106,8 +107,8 @@ final class Cronjob extends MethodCronjob
 			return false;
 		}
 
-		$gzip = Module_ZIP::instance()->cfgGZipPath();
-		$command = "\"$gzip\" $path";
+		$gzip = escapeshellarg(Module_ZIP::instance()->cfgGZipPath());
+		$command = "$gzip $path";
 		$output = null;
 		$return_val = null;
 		exec($command, $output, $return_val);
@@ -124,12 +125,14 @@ final class Cronjob extends MethodCronjob
 	{
 		$src = rtrim(GDO_File::filesDir(), '/');
 		$src = FileUtil::path($src);
+        $src = escapeshellarg($src);
 		$sitename = GDO_SITENAME;
 		$today = date('YmdHis');
 		$path = $this->tempDir() . "$sitename.$today.files.zip";
 		$path = FileUtil::path($path);
-		$zip = Module_ZIP::instance()->cfgZipPath();
-		$command = "\"$zip\" -j -r9 \"$path\" \"$src\"";
+        $path = escapeshellarg($path);
+		$zip = escapeshellarg(Module_ZIP::instance()->cfgZipPath());
+		$command = "$zip -j -r9 $path $src";
 		$output = null;
 		$return_val = null;
 		exec($command, $output, $return_val);
@@ -155,7 +158,7 @@ final class Cronjob extends MethodCronjob
 		$path = "$backupPath$sitename.$today.zip";
 		$path = FileUtil::path($path);
 		$zip = Module_ZIP::instance()->cfgZipPath();
-		$command = "$zip -j -r0 $path $src";
+		$command = sprintf("%s -j -r0 %s %s", escapeshellarg($zip), escapeshellarg($path), escapeshellarg($src));
 		$output = null;
 		$return_val = null;
 		exec($command, $output, $return_val);

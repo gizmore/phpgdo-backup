@@ -34,7 +34,8 @@ final class Module_Backup extends GDO_Module
 	public function getDependencies(): array
 	{
 		return [
-			'ZIP', 'Cronjob',
+            'Cronjob',
+			'ZIP',
 		];
 	}
 
@@ -55,7 +56,7 @@ final class Module_Backup extends GDO_Module
 		DetectMysqldump::make()->detect();
 	}
 
-	public function cfgSendMail() { return $this->getConfigValue('backup_send_mail'); }
+	public function cfgSendMail(): bool { return $this->getConfigValue('backup_send_mail'); }
 
 	public function cfgMysqlPath() { return $this->getConfigVar('mysql_path'); }
 
