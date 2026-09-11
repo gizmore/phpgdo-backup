@@ -15,9 +15,9 @@ return [
 	### Import
 	'mt_backup_importbackup' => 'Ein Backup einspielen',
 	### Download
-	'btn_download' => 'Download',
+	'btn_download' => 'Herunterladen',
 	### Admin
-	'mt_backup_admin' => 'Backups',
+	'mt_backup_admin' => 'Sicherungen',
 	### Mail
 	'mail_subj_backup' => '%s: Backup',
 	'mail_body_backup' => '
