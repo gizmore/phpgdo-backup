@@ -8,7 +8,7 @@ use GDO\Backup\Module_Backup;
 use GDO\Core\GDO_ArgError;
 use GDO\Core\GDO_Exception;
 use GDO\Core\GDT;
-use GDO\Core\GDT_Path;
+use GDO\Core\GDT_String;
 use GDO\Core\GDT_Response;
 use GDO\Core\Method;
 use GDO\Net\Stream;
@@ -46,7 +46,9 @@ final class Download extends Method
 	public function gdoParameters(): array
 	{
 		return [
-			GDT_Path::make('backup_name')->notNull()->existingFile(),
+			// The parameter is a filename, not a path visible to the web process.
+			// GDO_Backup::findByName() resolves and validates it in protected/backup.
+			GDT_String::make('backup_name')->notNull(),
 		];
 	}
 

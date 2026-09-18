@@ -28,6 +28,10 @@ final class GDO_Backup extends GDO
 	 */
 	public static function findByName(string $name): self
 	{
+		if (($name !== basename($name)) || !str_ends_with($name, '.zip'))
+		{
+			throw new GDO_Exception('err_file_not_found', [html($name)]);
+		}
 		$path = GDO_PATH . 'protected/backup/' . $name;
 		if (FileUtil::isFile($path))
 		{
@@ -70,7 +74,12 @@ final class GDO_Backup extends GDO
 
 	public function getID(): ?string { return null; }
 
-	public function href_backup_link(): string { return href('Backup', 'Download', '&backup_name=' . urlencode($this->getName())); }
+	public function href_backup_link(): string
+	{
+		// Backup filenames contain dots. SEO URL normalization replaces dots with
+		// underscores, so use the query-string route to preserve the exact name.
+		return hrefNoSeo('Backup', 'Download', '&backup_name=' . rawurlencode($this->getName()));
+	}
 
 	public function getName(): ?string { return $this->gdoVar('backup_name'); }
 
